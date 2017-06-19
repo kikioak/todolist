@@ -12,6 +12,7 @@ ul{
 }
 h1{
     text-decoration: underline;
+    font-weight: bold;
 }
 #todo-list li{
     list-style: none;
@@ -39,4 +40,8 @@ h1{
 }
 .item{
     padding: 10px;
+}
+body{
+    background-color: lightyellow;
+}
 }
