@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>To Do List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="mystyle.css" />
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>To Do List</h1>
+
+        <form id="todo-entry" class="form-inline">
+            <div class="form-group">
+                <label for="exampleInputName2">Task:</label>
+                <input type="text" class="form-control" id="todoname" placeholder="Enter new task" required>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail2">Due Date:</label>
+                <input type="date" class="form-control" id="tododate" placeholder="7-10-2017" required>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail2">Priority:</label>
+                <input type="text" class="form-control" id="priority" placeholder="1-5" required>
+            </div>
+            <button class="addTask" type="submit" class="btn btn-default">Add Task</button>
+        </form>
+
+        <ul id="todo-list">
+        </ul>
+        <ul id="done-list">
+        </ul>
+
+        <h3>Bonus</h3>
+        <ol>
+            <li>Sort To-Do based on priority. </li>
+            <li>(Make all completed tasks 0 priority.)</li>
+        </ol>
+
+    </div>
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0-alpha1.js"></script>
+    <script>
+
+
+        $(document).ready(function() {
+            var tasks = [
+                {
+                    task_name: 'Clean Dishes',
+                    task_is_done: "false",
+                    task_due: '2017-12-03',
+                },
+                {
+                    task_name: 'Start eating two apples a day.',
+                    task_is_done: "false",
+                    task_due: '2017-11-20',
+                },
+                {
+                    task_name: 'Clean kitty litter.',
+                    task_is_done: "false",
+                    task_due: '2016-05-13',
+                },
+            ];
+
+            function listTasks() {
+
+                for (let i = 0; i < tasks.length; i++) {
+                    if (tasks[i].task_is_done = "false" && new Date(tasks[i].task_due) < new Date()) { // compares to UTC so it is wrong sometimes when things are overdue. FIX
+                        $('#todo-list').append(`
+                        <div class="overdue item">
+                            <li>Task: ${tasks[i].task_name}</li>
+                            <li>Due: ${tasks[i].task_due}</li>
+                            <button class="buttondone">done</button>                 
+                        </div> `
+                        )
+                    }
+                    else if (tasks[i].task_is_done = "false") {
+                        $('#todo-list').append(`
+                        <div class="upcoming item">
+                            <li>Task: ${tasks[i].task_name}</li> 
+                            <li>Due: ${tasks[i].task_due}</li>
+                            <button class="buttondone">done</button>                  
+                        </div>
+                        `);
+                    }
+                }
+
+                $('.buttondone').on('click', function () {
+                    console.log('test');
+                    var nowDone = $(this).parent(); //grabs the div either overdue or upcoming item
+                    nowDone.removeClass('overdue upcoming'); // removes that class
+                    nowDone.addClass('done'); //adds done class (done + item)
+                    $(this).parent().remove(); //remove the task from the list
+                    $('#done-list').append(nowDone); //adds task to done-list
+                    $(this).remove(); //remove the done button
+                });
+
+            }
+
+
+            listTasks();
+
+            $('#todo-entry').on('submit', function(e) {
+                e.preventDefault();
+                var newTask = {
+                    task_name: $('#todoname').val(),
+                    task_is_done: "false",
+                    task_due: $('#tododate').val(),
+                }
+                tasks.push(newTask);
+                $('.form-inline').find('input').val('') // remove contents of form
+                $('#todo-list').empty();
+                listTasks();
+            });
+        });
+        
+    </script>
+</body>
+
+</html>
