@@ -70,7 +70,6 @@
             function listTasks() {
 
                 for (let i = 0; i < tasks.length; i++) {
-                    console.log(tasks[i].task_is_done);
                     if (tasks[i].task_is_done == false && new Date(tasks[i].task_due) < new Date()) { // compares to UTC so it is wrong sometimes when things are overdue. FIX
                         $('#todo-list').append(`
                         <div taskname="${tasks[i].task_name}" class="overdue item">
