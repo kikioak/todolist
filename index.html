@@ -33,12 +33,6 @@
         </ul>
         <ul id="done-list">
         </ul>
-
-        <h3>Bonus</h3>
-        <ol>
-            <li>Sort To-Do based on priority. </li>
-        </ol>
-
     </div>
 
 
@@ -50,19 +44,19 @@
                     task_name: 'Clean Dishes',
                     task_due: '2017-12-03',
                     task_is_done: false,
-                    priority: '3'
+                    priority: 3
                 },
                 {
                     task_name: 'Play Piano',
                     task_due: '2017-11-20',
                     task_is_done: false,
-                    priority: '2'
+                    priority: 4
                 },
                 {
                     task_name: 'Do Homework',
                     task_due: '2015-05-13',
                     task_is_done: false,
-                    priority: '5'
+                    priority: 1
                 },
             ];
 
@@ -102,7 +96,7 @@
                     for (let i = 0; i < tasks.length; i++) {
                         if (tasks[i].task_name == lookup) {
                             tasks[i].task_is_done = true;
-                            tasks[i].priority = '0';
+                            tasks[i].priority = 6;
                         }
                     }
                     var nowDone = $(this).parent(); //grabs the div either overdue or upcoming item
