@@ -68,23 +68,23 @@
                 });
                 console.log(sorted);
 
-                for (let i = 0; i < tasks.length; i++) {
-                    if (tasks[i].task_is_done == false && new Date(tasks[i].task_due) < new Date()) { // compares to UTC so it is wrong sometimes when things are overdue. FIX
+                for (let i = 0; i < sorted.length; i++) {
+                    if (sorted[i].task_is_done == false && new Date(sorted[i].task_due) < new Date()) { // compares to UTC so it is wrong sometimes when things are overdue. FIX
                         $('#todo-list').append(`
-                        <div taskname="${tasks[i].task_name}" class="overdue item">
-                            <li>Task: ${tasks[i].task_name}</li>
-                            <li>Due: ${tasks[i].task_due}</li>
-                            <li>Priority: ${tasks[i].priority}</li>
+                        <div taskname="${sorted[i].task_name}" class="overdue item">
+                            <li>Task: ${sorted[i].task_name}</li>
+                            <li>Due: ${sorted[i].task_due}</li>
+                            <li>Priority: ${sorted[i].priority}</li>
                             <button class="buttondone">done</button>                 
                         </div> `
                         )
                     }
-                    else if (tasks[i].task_is_done == false) {
+                    else if (sorted[i].task_is_done == false) {
                         $('#todo-list').append(`
-                        <div taskname="${tasks[i].task_name}" class="upcoming item">
-                            <li>Task: ${tasks[i].task_name}</li>
-                            <li>Due: ${tasks[i].task_due}</li>
-                            <li>Priority: ${tasks[i].priority}</li>
+                        <div taskname="${sorted[i].task_name}" class="upcoming item">
+                            <li>Task: ${sorted[i].task_name}</li>
+                            <li>Due: ${sorted[i].task_due}</li>
+                            <li>Priority: ${sorted[i].priority}</li>
                             <button class="buttondone">done</button>                 
                         </div> `
                         );
@@ -93,10 +93,10 @@
 
                 $('.buttondone').on('click', function () {
                     var lookup = $(this).parent().attr("taskname"); // save task nume as lookup
-                    for (let i = 0; i < tasks.length; i++) {
-                        if (tasks[i].task_name == lookup) {
-                            tasks[i].task_is_done = true;
-                            tasks[i].priority = 6;
+                    for (let i = 0; i < sorted.length; i++) {
+                        if (sorted[i].task_name == lookup) {
+                            sorted[i].task_is_done = true;
+                            sorted[i].priority = 6;
                         }
                     }
                     var nowDone = $(this).parent(); //grabs the div either overdue or upcoming item
