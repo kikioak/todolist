@@ -37,7 +37,6 @@
         <h3>Bonus</h3>
         <ol>
             <li>Sort To-Do based on priority. </li>
-            <li>(Make all completed tasks 0 priority.)</li>
         </ol>
 
     </div>
@@ -51,23 +50,29 @@
                     task_name: 'Clean Dishes',
                     task_due: '2017-12-03',
                     task_is_done: false,
-                    priority: '2'
+                    priority: '3'
                 },
                 {
                     task_name: 'Play Piano',
                     task_due: '2017-11-20',
                     task_is_done: false,
-                    priority: '4'
+                    priority: '2'
                 },
                 {
                     task_name: 'Do Homework',
                     task_due: '2015-05-13',
                     task_is_done: false,
-                    priority: '1'
+                    priority: '5'
                 },
             ];
 
             function listTasks() {
+
+                var sorted = tasks.slice(0);
+                sorted.sort(function (a, b) {
+                    return a.priority - b.priority;
+                });
+                console.log(sorted);
 
                 for (let i = 0; i < tasks.length; i++) {
                     if (tasks[i].task_is_done == false && new Date(tasks[i].task_due) < new Date()) { // compares to UTC so it is wrong sometimes when things are overdue. FIX
@@ -95,8 +100,9 @@
                 $('.buttondone').on('click', function () {
                     var lookup = $(this).parent().attr("taskname"); // save task nume as lookup
                     for (let i = 0; i < tasks.length; i++) {
-                        if (tasks[i].task_name == lookup){
-                            tasks[i].task_is_done = true
+                        if (tasks[i].task_name == lookup) {
+                            tasks[i].task_is_done = true;
+                            tasks[i].priority = '0';
                         }
                     }
                     var nowDone = $(this).parent(); //grabs the div either overdue or upcoming item
